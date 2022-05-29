@@ -1,10 +1,19 @@
 pipeline {
+    parameters {
+        string(name: 'REF', defaultValue:
+        '\${ghprbActualCommit}', description: 'Commit to build')
+    }
     agent {
         dockerfile {
             label 'docker'
         }
     }
     stages {
+        stage('Hello GitHub') {
+            steps {
+                echo "Hello GitHub!"
+            }
+        }
         stage('Compile') {
             steps {
                 sh 'python3 -m compileall adder.py'
