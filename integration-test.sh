@@ -9,7 +9,6 @@ SUM=$(docker run agentwong/adder:${VERSION} ${FIRST} ${SECOND})
 if [[ "${SUM" == ${EXPECTED}]]; then
     echo "Integration test passed"
 else
-    echo "[ERROR] ${FIRST} + ${SECOND} returned ${SUM},
-    not ${EXPECTED}" >&2
+    echo "[ERROR] ${FIRST} + ${SECOND} returned ${SUM}, not ${EXPECTED}" >&2
     exit 1
 fi
