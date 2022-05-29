@@ -1,11 +1,3 @@
-def REF = null
-if (env.my_parameter) {
-  REF = env.my_parameter
-} else {
-  REF = "my default value"
-}
-echo "MY VARIABLE IS SET: ${REF}"
-
 pipeline {
     parameters {
         string(name: 'REF', defaultValue: '\${ghprbActualCommit}', description: 'Commit to build')
