@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -o pipefail
 
 next_version=$(git tag -l | egrep '^[0-9]+\.[0-9]+\.[0-9]+$' | sort --version-sort | tail -1 | awk -F . '{print $1 "." $2+1 ".0"}')
 
