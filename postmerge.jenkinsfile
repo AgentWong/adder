@@ -45,7 +45,7 @@ pipeline {
                 }
             }
             steps {
-                bash """
+                sh """
                     export version_s=\$(cat version_f)
 
                     ./package.sh \${version_s}
