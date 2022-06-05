@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     version_g = sh (
-                        script: 'sh get-next-version.sh',
+                        script: 'bash get-next-version.sh',
                         returnStdout: true
                     ).trim()
                     echo "Next version is ${version_g}"
