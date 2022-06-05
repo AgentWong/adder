@@ -16,12 +16,12 @@ pipeline {
             }
             steps {
                 script {
-                    version_g = sh (
+                    version_g = bash (
                         script: 'bash get-next-version.sh',
                         returnStdout: true
                     ).trim()
                     echo "Next version is ${version_g}"
-                    sh "echo -n ${version_g} > version_f"
+                    bash "echo -n ${version_g} > version_f"
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             agent { label 'docker' }
             steps {
                 script {
-                    docker_group = sh (
+                    docker_group = bash (
                         script: "stat -c '%g' /var/run/docker.sock",
                         returnStdout: true
                     ).trim()
@@ -45,7 +45,7 @@ pipeline {
                 }
             }
             steps {
-                sh """
+                bash """
                     export version_s=\$(cat version_f)
 
                     ./package.sh \${version_s}
@@ -68,13 +68,13 @@ pipeline {
                             withCredentials([sshUserPrivateKey(
                                 credentialsId: 'ubuntu-github', keyFileVariable: 'KEYFILE')]) {
                                 withEnv(['GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no -i ${KEYFILE}']) {
-                                    sh "git tag ${version_g}"
-                                    sh "git push origin ${version_g}"
+                                    bash "git tag ${version_g}"
+                                    bash "git push origin ${version_g}"
                                 }
                             }
                         }
                     } catch (Exception e) {
-                        sh "git tag -d ${version_g} || true"
+                        bash "git tag -d ${version_g} || true"
                         throw e
                     }
                 }
