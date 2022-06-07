@@ -1,3 +1,3 @@
 # adder
 
-Testing post-merge trigger.
+Testing post-merge trigger...
