@@ -10,7 +10,7 @@ pipeline {
         stage('Get next version') {
             agent {
                 dockerfile {
-                    label 'docker'
+                    label 'linux'
                     filename 'git.dockerfile'
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
             }
         }
         stage('Get Docker group') {
-            agent { label 'docker' }
+            agent { label 'linux' }
             steps {
                 script {
                     docker_group = sh (
@@ -39,7 +39,7 @@ pipeline {
         stage('Package, Test, & Deliver') {
             agent {
                 dockerfile {
-                    label 'docker'
+                    label 'linux'
                     filename 'cd-env.dockerfile'
                     args "-v /var/run/docker.sock:/var/run/docker.sock:rw --group-add ${docker_group}"
                 }
@@ -59,7 +59,7 @@ pipeline {
             }
         }
         stage('Push git tag') {
-            agent { label 'docker' }
+            agent { label 'linux' }
             steps {
                 script {
                     try {
